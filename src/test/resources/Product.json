@@ -1,0 +1,184 @@
+{
+   "id":"USER.4b8f9b2c-570e-45d1-b5c0-60a32623c1b8_Product_CNT",
+   "model":{
+      "href":"/foundation/v2/modelTypes/Product/models/ModeleProduitCoffreFort"
+   },
+   "attribute":[
+      {
+         "href":"/foundation/v2/attributes/modifiedAt",
+         "value":[
+            "Wed, 09 Jul 2014 09:24:22 GMT"
+         ]
+      },
+      {
+         "href":"/foundation/v2/attributes/designation",
+         "value":[
+            "Armoire a fusils a cle TCH/10 - Rangement 10 fusils"
+         ]
+      },
+      {
+         "href":"/foundation/v2/attributes/mentionsLegales",
+         "value":[
+            "PRODUIT VENDU UNIQUEMENT SUR CASTORAMA.FR. NON DISPONIBLE EN MAGASIN."
+         ]
+      },
+      {
+         "href":"/foundation/v2/attributes/typeFermeture",
+         "value":[
+            "Cle"
+         ]
+      },
+      {
+         "href":"/foundation/v2/attributes/typePose",
+         "value":[
+            "A poser"
+         ]
+      },
+      {
+         "href":"/foundation/v2/attributes/stock",
+         "value":[
+            16
+         ]
+      },
+      {
+         "href":"/foundation/v2/attributes/prixachat",
+         "value":[
+            299
+         ]
+      },
+      {
+         "href":"/foundation/v2/attributes/createdAt",
+         "value":[
+            "Tue, 08 Jul 2014 13:35:28 GMT"
+         ]
+      },
+      {
+         "href":"/foundation/v2/attributes/marque",
+         "value":[
+            "TECHNOMAX"
+         ]
+      },
+      {
+         "href":"/foundation/v2/attributes/taille",
+         "value":[
+            "Special fusils"
+         ]
+      },
+      {
+         "href":"/foundation/v2/attributes/dimensionsInt",
+         "value":[
+            "l. 53 x P. 28,5 x H. 130 cm (coffret interieur inclus)"
+         ]
+      },
+      {
+         "href":"/foundation/v2/attributes/caracTaille",
+         "value":[
+            "Ideal pour stocker les armes de chasse et les munitions."
+         ]
+      },
+      {
+         "href":"/foundation/v2/attributes/hauteurPorte",
+         "value":[
+            "116 cm"
+         ]
+      },
+      {
+         "href":"/foundation/v2/attributes/gamme",
+         "value":[
+            "A"
+         ]
+      },
+      {
+         "href":"/foundation/v2/attributes/stockentreprise",
+         "value":[
+            2456
+         ]
+      },
+      {
+         "href":"/foundation/v2/attributes/typeSecurite",
+         "value":[
+            "Standard"
+         ]
+      },
+      {
+         "href":"/foundation/v2/attributes/disponibilite",
+         "value":[
+            "Vendu sur le site"
+         ]
+      },
+      {
+         "href":"/foundation/v2/attributes/poids",
+         "value":[
+            "74 kg"
+         ]
+      },
+      {
+         "href":"/foundation/v2/attributes/caracFermeture",
+         "value":[
+            "De securite avec cle a double panneton"
+         ]
+      },
+      {
+         "href":"/foundation/v2/attributes/largeurPorte",
+         "value":[
+            "43 cm"
+         ]
+      },
+      {
+         "href":"/foundation/v2/attributes/reference",
+         "value":[
+            "608134"
+         ]
+      },
+      {
+         "href":"/foundation/v2/attributes/plusProduit",
+         "value":[
+            "Trous pour fixation au dos et a la base (2+2).<br/>Tapis a la base.<br/>R?telier en bois recouvert de tissus.<br/>Cle prisonniere serrure ouverte.<br/>LIVRAISON OFFERTE VALABLE UNIQUEMENT SUR www.castorama.fr DANS LA LIMITE DES STOCKS DISPONIBLES. Non valable en magasin."
+         ]
+      },
+      {
+         "href":"/foundation/v2/attributes/BD00007",
+         "value":[
+            350
+         ]
+      },
+      {
+         "href":"/foundation/v2/attributes/dimensionsExt",
+         "value":[
+            "l. 53,5 x P. 32 x H. 145 cm"
+         ]
+      },
+      {
+         "href":"/foundation/v2/attributes/imageLink",
+         "value":[
+            {
+               "href":"/business/v2/media/images/USER.fbd06376-34a8-4524-8679-5afdf3d41a57_Image_CNT"
+            }
+         ]
+      },
+      {
+         "href":"/foundation/v2/attributes/volume",
+         "value":[
+            "218 L"
+         ]
+      },
+      {
+         "href":"/foundation/v2/attributes/autreCarac",
+         "value":[
+            "Coffret interieur pour munitions avec fermeture a cle."
+         ]
+      },
+      {
+         "href":"/foundation/v2/attributes/caracSecurite",
+         "value":[
+            "Epaisseur de la porte avec la serrurerie : 55 mm."
+         ]
+      },
+      {
+         "href":"/foundation/v2/attributes/999",
+         "value":[
+            "true"
+         ]
+      }
+   ]
+}
