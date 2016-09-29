@@ -7,30 +7,35 @@ import okhttp3.Headers;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-/**
- * Rest gateway.
- *
- * @author kassa
- */
+import java.util.Optional;
+
 public abstract class RestGateway implements ConnectorGateway {
+
+    private static final Logger logger = LoggerFactory.getLogger(RestGateway.class);
 
     private OkHttpClient getHttpClient() {
         return new OkHttpClient();
     }
 
     @Override
-    public void executeRequest(ConnectorRequest req, ConnectorResponse res) throws Exception {
-        String url = extractRequestUrl(req);
-        Request request = new Request.Builder().url(url).headers(buildHttpHeaders()).build();
-        Response response = getHttpClient().newCall(request).execute();
-        res = buildConnectorResponse(response);
+    public void executeRequest(final ConnectorRequest req, final ConnectorResponse res) throws Exception {
+        Optional<Worker> worker = getWorker(req);
+        if (worker.isPresent()) {
+            Request request = new Request.Builder().url(resolveUrl(worker.get(), req)).headers(buildHttpHeaders()).build();
+            Response response = getHttpClient().newCall(request).execute();
+            worker.get().getProcessor().process(response, req, res);
+        } else {
+            logger.error("Cannot find any worker the request '" + req.getName() + "'. Make sure that a processor is defined for that request");
+        }
     }
 
-    protected abstract String extractRequestUrl(ConnectorRequest req);
-
-    protected abstract ConnectorResponse buildConnectorResponse(Response response);
+    protected abstract String resolveUrl(Worker worker, ConnectorRequest req);
 
     protected abstract Headers buildHttpHeaders();
+
+    protected abstract Optional<Worker> getWorker(ConnectorRequest req);
 
 }

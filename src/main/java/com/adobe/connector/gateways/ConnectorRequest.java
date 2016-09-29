@@ -1,12 +1,10 @@
 package com.adobe.connector.gateways;
 
 /**
- * 
  * Connector request object.
- * 
- * @author kassa
  *
+ * @author kassa
  */
 public interface ConnectorRequest {
-
+    String getName();
 }

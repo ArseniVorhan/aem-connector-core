@@ -23,17 +23,18 @@ public class OrchestratorServiceImpl implements OrchestratorService {
     private GatewayResolver gatewayResolver;
 
     @Override
-    public void execute(ConnectorRequest req, ConnectorResponse res) throws Exception {
+    public void execute(final ConnectorRequest req, final ConnectorResponse res) throws RuntimeException {
         Optional<ConnectorGateway> resolvedGateway = gatewayResolver.resolve(req);
         if (resolvedGateway.isPresent()) {
             ConnectorGateway gateway = resolvedGateway.get();
             try {
                 gateway.executeRequest(req, res);
-            } finally {
-                gatewayResolver.releaseGateway(gateway);
+            } catch (Exception e) {
+                logger.error("Exception when executing request", e);
             }
         } else {
             logger.error("Unable to find a gateway resolving the request type " + req.getClass().getName());
+            throw new RuntimeException("Unable to find a gateway");
         }
 
     }

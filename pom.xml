@@ -31,11 +31,11 @@
                 <configuration>
                     <instructions>
                         <Embed-Dependency>
-                            commons-beanutils,json-path,org.apache.servicemix.bundles.okhttp,org.apache.servicemix.bundles.okio,jackson-*,json-smart,asm
+                            commons-beanutils,json-url,okhttp,okio,json-smart,asm
                         </Embed-Dependency>
                         <Embed-Transitive>true</Embed-Transitive>
                         <Import-Package>
-                            android.util;resolution:=optional,org.apache.tapestry5.json;resolution:=optional,*
+                            android.util;resolution:=optional,org.apache.tapestry5.json;resolution:=optional,com.fasterxml.jackson.*;resolution:=optional,*
                         </Import-Package>
                         <Export-Package>
                             com.adobe.connector.gateways.*,com.adobe.connector.services
@@ -74,6 +74,17 @@
                             <version>1.5.11</version>
                         </dependency>
                     </dependencies>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.felix</groupId>
+                    <artifactId>maven-bundle-plugin</artifactId>
+                    <version>2.5.3</version>
+                    <inherited>true</inherited>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.2</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -195,12 +206,6 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.google.code.findbugs</groupId>
-            <artifactId>jsr305</artifactId>
-            <version>3.0.0</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
             <groupId>javax.inject</groupId>
             <artifactId>javax.inject</artifactId>
             <version>1</version>
@@ -222,22 +227,11 @@
             <artifactId>mockito-all</artifactId>
             <version>1.9.5</version>
         </dependency>
-        <dependency>
-            <groupId>org.apache.servicemix.bundles</groupId>
-            <artifactId>org.apache.servicemix.bundles.okhttp</artifactId>
-            <version>3.3.0_1</version>
-        </dependency>
 
         <dependency>
-            <groupId>org.apache.servicemix.bundles</groupId>
-            <artifactId>org.apache.servicemix.bundles.okio</artifactId>
-            <version>1.9.0_1</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.servicemix.bundles</groupId>
-            <artifactId>org.apache.servicemix.bundles.jackson-module-scala</artifactId>
-            <version>2.3.0_1</version>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>3.4.1</version>
         </dependency>
 
         <dependency>
@@ -245,11 +239,11 @@
             <artifactId>asm</artifactId>
             <version>1.0.2</version>
         </dependency>
-        <!--<dependency>-->
-        <!--<groupId>com.jayway.jsonpath</groupId>-->
-        <!--<artifactId>json-path</artifactId>-->
-        <!--<version>2.2.0</version>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>com.jayway.jsonpath</groupId>
+            <artifactId>json-path</artifactId>
+            <version>2.2.0</version>
+        </dependency>
         <dependency>
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
