@@ -38,7 +38,7 @@
                             android.util;resolution:=optional,org.apache.tapestry5.json;resolution:=optional,com.fasterxml.jackson.*;resolution:=optional,*
                         </Import-Package>
                         <Export-Package>
-                            com.adobe.connector.gateways.*,com.adobe.connector.services
+                            com.adobe.connector.gateways.*,com.adobe.connector.services,com.adobe.connector.utils
                         </Export-Package>
                     </instructions>
                 </configuration>

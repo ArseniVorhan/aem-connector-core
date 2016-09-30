@@ -6,5 +6,4 @@ package com.adobe.connector.gateways;
  * @author kassa
  */
 public interface ConnectorRequest {
-    String getName();
 }

@@ -4,6 +4,7 @@ import com.adobe.connector.gateways.ConnectorGateway;
 import com.adobe.connector.gateways.ConnectorRequest;
 import com.adobe.connector.services.GatewayFactoryService;
 import com.adobe.connector.services.GatewayResolver;
+import com.adobe.connector.utils.ConnectorUtils;
 import org.apache.felix.scr.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -63,7 +64,7 @@ public class GatewayResolverImpl implements GatewayResolver {
         ConnectorGateway connectorGateway = null;
         if (this.gatewayMappers.size() > 0 && this.gatewayServices.size() > 0) {
             for (GatewayFactoryService config : this.gatewayMappers) {
-                if (req.getName().equalsIgnoreCase(config.getGatewayRequestAllowed())) {
+                if (ConnectorUtils.getClassHierarchy(req).contains(config.getGatewayRequestAllowed())) {
                     synchronized (this.gatewayServices) {
                         return this.gatewayServices.get(config.getGatewayName());
                     }

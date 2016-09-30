@@ -1,12 +1,9 @@
 package com.adobe.connector.gateways;
 
 /**
- * 
  * Connector response object.
- * 
- * @author kassa
  *
+ * @author kassa
  */
 public interface ConnectorResponse {
-
 }

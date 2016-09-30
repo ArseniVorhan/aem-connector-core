@@ -2,7 +2,8 @@ package com.adobe.connector.gateways.http;
 
 import com.adobe.connector.gateways.ConnectorRequest;
 import com.adobe.connector.gateways.ConnectorResponse;
-import okhttp3.Response;
+
+import java.io.InputStream;
 
 /**
  * Created by stievena on 29/09/16.
@@ -10,5 +11,5 @@ import okhttp3.Response;
 public interface Processor {
     String getName();
 
-    void process(Response httpResponse, ConnectorRequest connectorRequest, ConnectorResponse connectorResponse);
+    void process(InputStream inputStream, ConnectorRequest connectorRequest, ConnectorResponse connectorResponse);
 }

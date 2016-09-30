@@ -53,17 +53,14 @@ public class OrchestratorServiceTest {
         Mockito.when(mockGatewayBeta.getName()).thenReturn("MockGatewayBeta");
         context.registerService(ConnectorGateway.class, mockGatewayBeta);
 
-        Mockito.when(mockRequestAlpha.getName()).thenReturn("MockRequestAlpha");
-        Mockito.when(mockRequestBeta.getName()).thenReturn("MockRequestBeta");
-
         context.registerInjectActivateService(new GatewayFactoryServiceImpl(), ImmutableMap.<String, Object>builder()
                 .put("name", "MockGatewayAlpha")
-                .put("request.allowed", "MockRequestAlpha")
+                .put("request.allowed", "com.adobe.connector.gateways.ConnectorRequest")
                 .build());
 
         context.registerInjectActivateService(new GatewayFactoryServiceImpl(), ImmutableMap.<String, Object>builder()
                 .put("name", "MockGatewayBeta")
-                .put("request.allowed", "MockRequestBeta")
+                .put("request.allowed", "com.adobe.connector.gateways.ConnectorRequest")
                 .build());
 
         context.registerInjectActivateService(orchestratorService);
@@ -86,7 +83,6 @@ public class OrchestratorServiceTest {
         OrchestratorService orchestratorService = context.getService(OrchestratorService.class);
 
         ConnectorRequest mockRequest = Mockito.mock(ConnectorRequest.class);
-        Mockito.when(mockRequest.getName()).thenReturn("MockRequest");
         orchestratorService.execute(mockRequest, mockResponse);
     }
 
