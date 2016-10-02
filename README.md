@@ -1,1 +1,1 @@
-# aem-connector-core
+# aem-connector OPUS
