@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.text.MessageFormat;
+import java.util.Map;
 import java.util.Optional;
 
 public abstract class RestGateway implements ConnectorGateway {
@@ -33,12 +34,18 @@ public abstract class RestGateway implements ConnectorGateway {
         }
     }
 
-    protected String resolveUrl(Worker worker, ConnectorRequest req) {
+    private Headers buildHttpHeaders() {
+        Headers.Builder builder = new Headers.Builder();
+        getHttpHeaders().forEach((key, value) -> builder.add(key, value));
+        return builder.build();
+    }
+
+    private String resolveUrl(Worker worker, ConnectorRequest req) {
         MessageFormat messageFormat = new MessageFormat(worker.getUrl());
         return messageFormat.format(((RestRequest) req).getParameters());
     }
 
-    protected abstract Headers buildHttpHeaders();
+    protected abstract Map<String, String> getHttpHeaders();
 
     protected abstract Optional<Worker> getWorker(ConnectorRequest req);
 
