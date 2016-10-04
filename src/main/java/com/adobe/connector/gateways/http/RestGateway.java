@@ -28,7 +28,11 @@ public abstract class RestGateway implements ConnectorGateway {
         if (worker.isPresent()) {
             Request request = new Request.Builder().url(resolveUrl(worker.get(), req)).headers(buildHttpHeaders()).build();
             Response response = getHttpClient().newCall(request).execute();
-            worker.get().getProcessor().process(response.body().byteStream(), req, res);
+            if (response.isSuccessful()) {
+                worker.get().getProcessor().process(response.body().byteStream(), req, res);
+            } else {
+                logger.error("Error when requesting '" + resolveUrl(worker.get(), req) + "' - Reason " + response.message());
+            }
         } else {
             logger.error("Cannot find any worker the request '" + req.getClass().getName() + "'. Make sure that a processor is defined for that request");
         }
