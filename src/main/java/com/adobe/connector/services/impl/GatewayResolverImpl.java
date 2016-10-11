@@ -1,8 +1,8 @@
 package com.adobe.connector.services.impl;
 
-import com.adobe.connector.gateways.ConnectorGateway;
-import com.adobe.connector.gateways.ConnectorRequest;
-import com.adobe.connector.services.GatewayFactoryService;
+import com.adobe.connector.gateways.Gateway;
+import com.adobe.connector.ConnectorRequest;
+import com.adobe.connector.services.ExecutionPlanFactory;
 import com.adobe.connector.services.GatewayResolver;
 import com.adobe.connector.utils.ConnectorUtils;
 import org.apache.felix.scr.annotations.*;
@@ -14,16 +14,16 @@ import java.util.*;
 @Component(immediate = true)
 @Service(GatewayResolver.class)
 @References({
-        @Reference(name = "gatewayMapper", referenceInterface = GatewayFactoryService.class, cardinality = ReferenceCardinality.OPTIONAL_MULTIPLE, policy = ReferencePolicy.DYNAMIC),
-        @Reference(name = "gatewayService", referenceInterface = ConnectorGateway.class, cardinality = ReferenceCardinality.OPTIONAL_UNARY, policy = ReferencePolicy.DYNAMIC)})
+        @Reference(name = "gatewayMapper", referenceInterface = ExecutionPlanFactory.class, cardinality = ReferenceCardinality.OPTIONAL_MULTIPLE, policy = ReferencePolicy.DYNAMIC),
+        @Reference(name = "gatewayService", referenceInterface = Gateway.class, cardinality = ReferenceCardinality.OPTIONAL_UNARY, policy = ReferencePolicy.DYNAMIC)})
 public class GatewayResolverImpl implements GatewayResolver {
 
     private final static Logger logger = LoggerFactory.getLogger(GatewayResolverImpl.class);
 
-    private final List<GatewayFactoryService> gatewayMappers = new ArrayList<>();
-    private final Map<String, ConnectorGateway> gatewayServices = new HashMap<>();
+    private final List<ExecutionPlanFactory> gatewayMappers = new ArrayList<>();
+    private final Map<String, Gateway> gatewayServices = new HashMap<>();
 
-    protected void bindGatewayMapper(final GatewayFactoryService configService, final Map<String, Object> properties) {
+    protected void bindGatewayMapper(final ExecutionPlanFactory configService, final Map<String, Object> properties) {
         if (configService != null) {
             synchronized (this.gatewayMappers) {
                 this.gatewayMappers.add(configService);
@@ -31,7 +31,7 @@ public class GatewayResolverImpl implements GatewayResolver {
         }
     }
 
-    protected void unbindGatewayMapper(final GatewayFactoryService configService, final Map<String, Object> properties) {
+    protected void unbindGatewayMapper(final ExecutionPlanFactory configService, final Map<String, Object> properties) {
         if (configService != null) {
             synchronized (this.gatewayMappers) {
                 this.gatewayMappers.remove(configService);
@@ -39,7 +39,7 @@ public class GatewayResolverImpl implements GatewayResolver {
         }
     }
 
-    protected void bindGatewayService(final ConnectorGateway gateway, final Map<String, Object> properties) {
+    protected void bindGatewayService(final Gateway gateway, final Map<String, Object> properties) {
         if (gateway != null) {
             synchronized (this.gatewayMappers) {
                 this.gatewayServices.put(gateway.getName(), gateway);
@@ -47,7 +47,7 @@ public class GatewayResolverImpl implements GatewayResolver {
         }
     }
 
-    protected void unbindGatewayService(final ConnectorGateway gateway, final Map<String, Object> properties) {
+    protected void unbindGatewayService(final Gateway gateway, final Map<String, Object> properties) {
         if (gateway != null) {
             synchronized (this.gatewayMappers) {
                 this.gatewayServices.remove(gateway.getName());
@@ -56,17 +56,17 @@ public class GatewayResolverImpl implements GatewayResolver {
     }
 
     @Override
-    public Optional<ConnectorGateway> resolve(ConnectorRequest req) {
+    public Optional<Gateway> resolve(ConnectorRequest req) {
         return Optional.ofNullable(getGatewayFromConfig(req));
     }
 
-    private ConnectorGateway getGatewayFromConfig(ConnectorRequest req) {
-        ConnectorGateway connectorGateway = null;
+    private Gateway getGatewayFromConfig(ConnectorRequest req) {
+        Gateway gateway = null;
         if (this.gatewayMappers.size() > 0 && this.gatewayServices.size() > 0) {
-            for (GatewayFactoryService config : this.gatewayMappers) {
-                if (ConnectorUtils.getClassHierarchy(req).contains(config.getGatewayRequestAllowed())) {
+            for (ExecutionPlanFactory config : this.gatewayMappers) {
+                if (ConnectorUtils.getClassHierarchy(req).contains(config.getRequest())) {
                     synchronized (this.gatewayServices) {
-                        return this.gatewayServices.get(config.getGatewayName());
+                        return this.gatewayServices.get(config.getGatewaysName());
                     }
                 }
             }
@@ -74,7 +74,7 @@ public class GatewayResolverImpl implements GatewayResolver {
             logger.error("No Gateway mapping or Gateway service has been found");
         }
 
-        return connectorGateway;
+        return gateway;
     }
 
 }
