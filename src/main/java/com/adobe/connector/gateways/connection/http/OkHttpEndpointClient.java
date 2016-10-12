@@ -1,11 +1,8 @@
 package com.adobe.connector.gateways.connection.http;
 
+import com.adobe.connector.gateways.message.HttpMessage;
 import com.adobe.connector.gateways.message.Message;
-import com.adobe.connector.gateways.message.RestMessage;
-import okhttp3.Headers;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import okhttp3.*;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Service;
 import org.slf4j.Logger;
@@ -29,9 +26,22 @@ public class OkHttpEndpointClient implements HttpEndpointClient {
 
     @Override
     public HttpResponse getHttpResponse(Message message) {
+        HttpMessage httpMessage = (HttpMessage) message;
         Response response = null;
         try {
-            Request request = new Request.Builder().url(message.getMessageAsString()).headers(buildHttpHeaders(((RestMessage) message).getHeader())).build();
+            //TODO clean the code
+            Request.Builder requestBuilder = new Request.Builder().url(httpMessage.getUrl()).headers(buildHttpHeaders(httpMessage.getHeaders()));
+            if (httpMessage.isPost()) {
+                if (httpMessage.getFormParameters() != null && httpMessage.getFormParameters().size() > 0) {
+                    FormBody.Builder formBody = new FormBody.Builder();
+                    httpMessage.getFormParameters().forEach((s, s2) -> formBody.add(s, s2));
+                    requestBuilder.post(formBody.build());
+                } else if (httpMessage.getBody() != null) {
+                    RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), httpMessage.getBody());
+                    requestBuilder.post(body);
+                }
+            }
+            Request request = requestBuilder.build();
             response = getHttpClient().newCall(request).execute();
             byte[] responseData = null;
             if (response.isSuccessful()) {
@@ -39,7 +49,7 @@ public class OkHttpEndpointClient implements HttpEndpointClient {
             }
             return new HttpResponse(responseData, response.code(), response.message());
         } catch (Throwable e) {
-            logger.error("Error when executing request " + message.getMessageAsString() + " with headers " + ((RestMessage) message).getHeader().toString(), e);
+            logger.error("Error when executing request " + httpMessage.getUrl() + " with headers " + httpMessage.getHeaders().toString(), e);
         } finally {
             if (response != null) {
                 response.close();

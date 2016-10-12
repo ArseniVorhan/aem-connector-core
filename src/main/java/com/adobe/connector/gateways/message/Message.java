@@ -3,37 +3,21 @@ package com.adobe.connector.gateways.message;
 public abstract class Message {
 
     protected enum Type {
-        URL, XML
+        HTTP, SQL
     }
 
     private Type type = null;
 
-    protected String url = null;
-
-    protected Message(Type type, String url) {
+    protected Message(Type type) {
         this.type = type;
-        this.url = url;
     }
 
-    public boolean isSecure() {
-        return false;
+    public boolean isHttp() {
+        return Type.HTTP.equals(type);
     }
 
-    public abstract String getMessageAsString();
-
-    public boolean isUrl() {
-        return Type.URL.equals(type);
+    public boolean isSql() {
+        return Type.SQL.equals(type);
     }
 
-    public boolean isXml() {
-        return Type.XML.equals(type);
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
 }
