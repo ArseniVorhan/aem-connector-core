@@ -29,15 +29,14 @@ public class OkHttpEndpointClient implements HttpEndpointClient {
         HttpMessage httpMessage = (HttpMessage) message;
         Response response = null;
         try {
-            //TODO clean the code
             Request.Builder requestBuilder = new Request.Builder().url(httpMessage.getUrl()).headers(buildHttpHeaders(httpMessage.getHeaders()));
             if (httpMessage.isPost()) {
-                if (httpMessage.getFormParameters() != null && httpMessage.getFormParameters().size() > 0) {
+                if (httpMessage.isFormPost() && httpMessage.getFormParameters().size() > 0) {
                     FormBody.Builder formBody = new FormBody.Builder();
                     httpMessage.getFormParameters().forEach((s, s2) -> formBody.add(s, s2));
                     requestBuilder.post(formBody.build());
-                } else if (httpMessage.getBody() != null) {
-                    RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), httpMessage.getBody());
+                } else if (httpMessage.isBodyPost() && httpMessage.getBody() != null) {
+                    RequestBody body = RequestBody.create(MediaType.parse(httpMessage.getMediaType()), httpMessage.getBody());
                     requestBuilder.post(body);
                 }
             }
