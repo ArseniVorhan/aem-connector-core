@@ -9,9 +9,6 @@ public class HttpMessage extends Message {
     }
 
     private String url;
-
-    private boolean isFirstParameter = true;
-
     private Map<String, String> headers;
     private POST_METHOD postMethod;
     private Map<String, String> formParameters;
