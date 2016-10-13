@@ -86,9 +86,12 @@ public class DefaultOrchestratorService implements OrchestratorService {
     }
 
     private ConnectorResponse handleConnectorResponses(Map<String, ConnectorResponse> connectorResponses, ConnectorRequest request, String responseCombiner) {
-        if (responseCombiner != null && responseCombinerMap.containsKey(responseCombiner)) {
-            return responseCombinerMap.get(responseCombiner).combine(connectorResponses, request);
+        if (connectorResponses.size() > 0) {
+            if (responseCombiner != null && responseCombinerMap.containsKey(responseCombiner)) {
+                return responseCombinerMap.get(responseCombiner).combine(connectorResponses, request);
+            }
+            return connectorResponses.values().stream().findFirst().get();
         }
-        return connectorResponses.values().stream().findFirst().get();
+        return null;
     }
 }
