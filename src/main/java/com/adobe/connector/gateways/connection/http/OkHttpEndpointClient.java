@@ -30,16 +30,40 @@ public class OkHttpEndpointClient implements HttpEndpointClient {
         Response response = null;
         try {
             Request.Builder requestBuilder = new Request.Builder().url(httpMessage.getUrl()).headers(buildHttpHeaders(httpMessage.getHeaders()));
-            if (httpMessage.isPost()) {
-                if (httpMessage.isFormPost() && httpMessage.getFormParameters().size() > 0) {
-                    FormBody.Builder formBody = new FormBody.Builder();
-                    httpMessage.getFormParameters().forEach((s, s2) -> formBody.add(s, s2));
-                    requestBuilder.post(formBody.build());
-                } else if (httpMessage.isBodyPost() && httpMessage.getBody() != null) {
-                    RequestBody body = RequestBody.create(MediaType.parse(httpMessage.getMediaType()), httpMessage.getBody());
-                    requestBuilder.post(body);
-                }
+            RequestBody requestBody = null;
+            if (httpMessage.getFormParameters().size() > 0) {
+                FormBody.Builder formBody = new FormBody.Builder();
+                httpMessage.getFormParameters().forEach((s, s2) -> formBody.add(s, s2));
+                requestBody = formBody.build();
+            } else if (httpMessage.getBody() != null) {
+                requestBody = RequestBody.create(MediaType.parse(httpMessage.getMediaType()), httpMessage.getBody());
             }
+
+            switch (httpMessage.getHttpMethod()) {
+                case POST:
+                    if (requestBody != null) {
+                        requestBuilder.post(requestBody);
+                    }
+                    break;
+                case PUT:
+                    if (requestBody != null) {
+                        requestBuilder.put(requestBody);
+                    }
+                    break;
+                case DELETE:
+                    if (requestBody != null) {
+                        requestBuilder.delete(requestBody);
+                    } else {
+                        requestBuilder.delete();
+                    }
+                    break;
+                case PATCH:
+                    if (requestBody != null) {
+                        requestBuilder.patch(requestBody);
+                    }
+                    break;
+            }
+
             Request request = requestBuilder.build();
             response = getHttpClient().newCall(request).execute();
             byte[] responseData = null;

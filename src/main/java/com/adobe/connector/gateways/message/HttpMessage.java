@@ -4,13 +4,13 @@ import java.util.Map;
 
 public class HttpMessage extends Message {
 
-    public enum POST_METHOD {
-        FORM, BODY
+    public static enum HTTP_METHOD {
+        GET, POST, PUT, DELETE, PATCH
     }
 
     private String url;
     private Map<String, String> headers;
-    private POST_METHOD postMethod;
+    private HTTP_METHOD httpMethod;
     private Map<String, String> formParameters;
     private Body body;
 
@@ -19,21 +19,29 @@ public class HttpMessage extends Message {
     }
 
     public HttpMessage(String url, String body) {
-        this(url, null, body, POST_METHOD.BODY);
+        this(url, null, body, HTTP_METHOD.POST);
+    }
+
+    public HttpMessage(String url, String body, HTTP_METHOD httpMethod) {
+        this(url, null, body, httpMethod);
     }
 
     public HttpMessage(String url, Map<String, String> formParameters) {
-        this(url, formParameters, null, POST_METHOD.FORM);
+        this(url, formParameters, null, HTTP_METHOD.POST);
     }
 
-    private HttpMessage(String url, Map<String, String> formParameters, String body, POST_METHOD postMethod) {
+    public HttpMessage(String url, Map<String, String> formParameters, HTTP_METHOD httpMethod) {
+        this(url, formParameters, null, httpMethod);
+    }
+
+    private HttpMessage(String url, Map<String, String> formParameters, String body, HTTP_METHOD httpMethod) {
         super(Type.HTTP);
         this.url = url;
         if (body != null) {
             this.body = new Body(body);
         }
         this.formParameters = formParameters;
-        this.postMethod = postMethod;
+        this.httpMethod = httpMethod;
     }
 
     public String getUrl() {
@@ -55,7 +63,6 @@ public class HttpMessage extends Message {
         return null;
     }
 
-
     public String getMediaType() {
         if (this.body != null) {
             return this.body.getMediaType();
@@ -75,20 +82,25 @@ public class HttpMessage extends Message {
         return formParameters;
     }
 
-    public boolean isFormPost() {
-        return postMethod == POST_METHOD.FORM;
-    }
 
-    public boolean isBodyPost() {
-        return postMethod == POST_METHOD.BODY;
+    public HTTP_METHOD getHttpMethod() {
+        return httpMethod;
     }
 
     public boolean isPost() {
-        return isFormPost() || isBodyPost();
+        return httpMethod == HTTP_METHOD.POST;
     }
 
     public boolean isGet() {
-        return !isFormPost() && !isBodyPost();
+        return httpMethod == HTTP_METHOD.GET;
+    }
+
+    public boolean isPut() {
+        return httpMethod == HTTP_METHOD.PUT;
+    }
+
+    public boolean isDelete() {
+        return httpMethod == HTTP_METHOD.DELETE;
     }
 
     private class Body {
