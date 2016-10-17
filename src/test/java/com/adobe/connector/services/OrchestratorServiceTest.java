@@ -42,27 +42,27 @@ public class OrchestratorServiceTest {
     @Before
     public void setUp() throws Exception {
 
-        context.registerInjectActivateService(gatewayResolver);
-
-        Gateway mockGatewayAlpha = Mockito.mock(Gateway.class);
-        Mockito.when(mockGatewayAlpha.getName()).thenReturn("MockGatewayAlpha");
-        context.registerService(Gateway.class, mockGatewayAlpha);
-
-        Gateway mockGatewayBeta = Mockito.mock(Gateway.class);
-        Mockito.when(mockGatewayBeta.getName()).thenReturn("MockGatewayBeta");
-        context.registerService(Gateway.class, mockGatewayBeta);
-
-        context.registerInjectActivateService(new ExecutionPlanFactoryImpl(), ImmutableMap.<String, Object>builder()
-                .put("name", "MockGatewayAlpha")
-                .put("request.allowed", "com.adobe.connector.ConnectorRequest")
-                .build());
-
-        context.registerInjectActivateService(new ExecutionPlanFactoryImpl(), ImmutableMap.<String, Object>builder()
-                .put("name", "MockGatewayBeta")
-                .put("request.allowed", "com.adobe.connector.ConnectorRequest")
-                .build());
-
-        context.registerInjectActivateService(orchestratorService);
+//        context.registerInjectActivateService(gatewayResolver);
+//
+//        Gateway mockGatewayAlpha = Mockito.mock(Gateway.class);
+//        Mockito.when(mockGatewayAlpha.getName()).thenReturn("MockGatewayAlpha");
+//        context.registerService(Gateway.class, mockGatewayAlpha);
+//
+//        Gateway mockGatewayBeta = Mockito.mock(Gateway.class);
+//        Mockito.when(mockGatewayBeta.getName()).thenReturn("MockGatewayBeta");
+//        context.registerService(Gateway.class, mockGatewayBeta);
+//
+//        context.registerInjectActivateService(new ExecutionPlanFactoryImpl(), ImmutableMap.<String, Object>builder()
+//                .put("name", "MockGatewayAlpha")
+//                .put("request.allowed", "com.adobe.connector.ConnectorRequest")
+//                .build());
+//
+//        context.registerInjectActivateService(new ExecutionPlanFactoryImpl(), ImmutableMap.<String, Object>builder()
+//                .put("name", "MockGatewayBeta")
+//                .put("request.allowed", "com.adobe.connector.ConnectorRequest")
+//                .build());
+//
+//        context.registerInjectActivateService(orchestratorService);
 
 
     }
