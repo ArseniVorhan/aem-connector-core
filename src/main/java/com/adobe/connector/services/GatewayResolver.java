@@ -1,12 +1,12 @@
 package com.adobe.connector.services;
 
-import com.adobe.connector.gateways.ConnectorGateway;
-import com.adobe.connector.gateways.ConnectorRequest;
+import com.adobe.connector.gateway.Gateway;
+import com.adobe.connector.ConnectorRequest;
 
 import java.util.Optional;
 
 public interface GatewayResolver {
 
-    Optional<ConnectorGateway> resolve(ConnectorRequest req);
+    Optional<Gateway> resolve(ConnectorRequest req);
 
 }

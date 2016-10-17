@@ -1,6 +1,6 @@
 package com.adobe.connector.utils;
 
-import com.adobe.connector.gateways.ConnectorRequest;
+import com.adobe.connector.ConnectorRequest;
 
 import java.util.ArrayList;
 import java.util.List;

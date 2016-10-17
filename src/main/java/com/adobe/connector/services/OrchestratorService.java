@@ -1,10 +1,14 @@
 package com.adobe.connector.services;
 
-import com.adobe.connector.gateways.ConnectorRequest;
-import com.adobe.connector.gateways.ConnectorResponse;
+import com.adobe.connector.ConnectorRequest;
+import com.adobe.connector.ConnectorResponse;
+
+import java.util.List;
 
 public interface OrchestratorService {
 
-    public void execute(ConnectorRequest req, ConnectorResponse res);
+    ConnectorResponse execute(ConnectorRequest req);
+
+    List<ConnectorResponse> execute(List<ConnectorRequest> reqList);
 
 }
