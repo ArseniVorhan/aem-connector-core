@@ -8,10 +8,13 @@ import com.adobe.connector.gateway.Gateway;
 import com.adobe.connector.services.ExecutionPlanBuilder;
 import com.adobe.connector.services.OrchestratorService;
 import com.adobe.connector.utils.PerformanceLogger;
+import com.drew.lang.annotations.NotNull;
 import org.apache.felix.scr.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -57,7 +60,7 @@ public class DefaultOrchestratorService implements OrchestratorService {
 
 
     @Override
-    public ConnectorResponse execute(final ConnectorRequest req) throws RuntimeException {
+    public ConnectorResponse execute(@NotNull final ConnectorRequest req) throws RuntimeException {
         PerformanceLogger.enable();
         try {
             perfLog.start();
@@ -83,6 +86,13 @@ public class DefaultOrchestratorService implements OrchestratorService {
             PerformanceLogger.clean();
         }
         return null;
+    }
+
+    @Override
+    public List<ConnectorResponse> execute(@NotNull final List<ConnectorRequest> reqList) {
+        List<ConnectorResponse> responseList = new ArrayList<>();
+        reqList.parallelStream().forEachOrdered(connectorRequest -> responseList.add(execute(connectorRequest)));
+        return responseList;
     }
 
     private ConnectorResponse handleConnectorResponses(Map<String, ConnectorResponse> connectorResponses, ConnectorRequest request, String responseCombiner) {
