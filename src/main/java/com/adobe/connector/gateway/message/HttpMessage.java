@@ -1,4 +1,4 @@
-package com.adobe.connector.gateways.message;
+package com.adobe.connector.gateway.message;
 
 import java.util.Map;
 
@@ -15,7 +15,7 @@ public class HttpMessage extends Message {
     private Body body;
 
     public HttpMessage(String url) {
-        this(url, null, null, null);
+        this(url, null, null, HTTP_METHOD.GET);
     }
 
     public HttpMessage(String url, String body) {
@@ -28,10 +28,6 @@ public class HttpMessage extends Message {
 
     public HttpMessage(String url, Map<String, String> formParameters) {
         this(url, formParameters, null, HTTP_METHOD.POST);
-    }
-
-    public HttpMessage(String url, Map<String, String> formParameters, HTTP_METHOD httpMethod) {
-        this(url, formParameters, null, httpMethod);
     }
 
     private HttpMessage(String url, Map<String, String> formParameters, String body, HTTP_METHOD httpMethod) {

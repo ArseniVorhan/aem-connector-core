@@ -1,9 +1,9 @@
-package com.adobe.connector.gateways;
+package com.adobe.connector.gateway;
 
 import com.adobe.connector.ConnectorResponse;
-import com.adobe.connector.gateways.connection.EndpointConnector;
-import com.adobe.connector.gateways.connection.EndpointResponse;
-import com.adobe.connector.gateways.message.Message;
+import com.adobe.connector.gateway.connection.EndpointConnector;
+import com.adobe.connector.gateway.connection.EndpointResponse;
+import com.adobe.connector.gateway.message.Message;
 import com.adobe.connector.utils.PerformanceLogger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

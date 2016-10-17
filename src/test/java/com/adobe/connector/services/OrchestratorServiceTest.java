@@ -1,7 +1,7 @@
 package com.adobe.connector.services;
 
 
-import com.adobe.connector.gateways.Gateway;
+import com.adobe.connector.gateway.Gateway;
 import com.adobe.connector.ConnectorRequest;
 import com.adobe.connector.ConnectorResponse;
 import com.adobe.connector.services.impl.ExecutionPlanFactoryImpl;

@@ -1,8 +1,8 @@
 package com.adobe.connector;
 
 
-import com.adobe.connector.gateways.GatewayRequest;
-import com.adobe.connector.gateways.GatewayResponse;
+import com.adobe.connector.gateway.GatewayRequest;
+import com.adobe.connector.gateway.GatewayResponse;
 
 public class WorkUnit {
 

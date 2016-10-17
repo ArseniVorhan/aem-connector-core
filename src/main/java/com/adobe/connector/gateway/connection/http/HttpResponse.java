@@ -1,4 +1,4 @@
-package com.adobe.connector.gateways.connection.http;
+package com.adobe.connector.gateway.connection.http;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;

@@ -17,7 +17,7 @@ public class ExecutionPlanFactoryImpl implements ExecutionPlanFactory {
     @Property(label = "Request", description = "Provide the fully qualified name of the request.")
     private static final String REQUEST = "request";
 
-    @Property(label = "Gateways' name", description = "Provide the list of gateways' name that should resolve the request.")
+    @Property(label = "Gateways' name", description = "Provide the list of gateway' name that should resolve the request.")
     private static final String GATEWAY_NAME = "gateway.name";
 
     @Property(label = "Response combiner", description = "Provide the name of the response combiner. Leave empty if not combiner is needed.", unbounded = PropertyUnbounded.ARRAY)

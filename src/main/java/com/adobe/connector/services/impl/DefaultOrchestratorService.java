@@ -4,7 +4,7 @@ import com.adobe.connector.ConnectorRequest;
 import com.adobe.connector.ConnectorResponse;
 import com.adobe.connector.ExecutionPlan;
 import com.adobe.connector.ResponseCombiner;
-import com.adobe.connector.gateways.Gateway;
+import com.adobe.connector.gateway.Gateway;
 import com.adobe.connector.services.ExecutionPlanBuilder;
 import com.adobe.connector.services.OrchestratorService;
 import com.adobe.connector.utils.PerformanceLogger;

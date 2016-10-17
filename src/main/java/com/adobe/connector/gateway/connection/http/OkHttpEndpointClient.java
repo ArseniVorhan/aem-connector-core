@@ -1,7 +1,7 @@
-package com.adobe.connector.gateways.connection.http;
+package com.adobe.connector.gateway.connection.http;
 
-import com.adobe.connector.gateways.message.HttpMessage;
-import com.adobe.connector.gateways.message.Message;
+import com.adobe.connector.gateway.message.HttpMessage;
+import com.adobe.connector.gateway.message.Message;
 import okhttp3.*;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Service;
@@ -31,7 +31,7 @@ public class OkHttpEndpointClient implements HttpEndpointClient {
         try {
             Request.Builder requestBuilder = new Request.Builder().url(httpMessage.getUrl()).headers(buildHttpHeaders(httpMessage.getHeaders()));
             RequestBody requestBody = null;
-            if (httpMessage.getFormParameters().size() > 0) {
+            if (httpMessage.getFormParameters() != null && httpMessage.getFormParameters().size() > 0) {
                 FormBody.Builder formBody = new FormBody.Builder();
                 httpMessage.getFormParameters().forEach((s, s2) -> formBody.add(s, s2));
                 requestBody = formBody.build();

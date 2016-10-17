@@ -1,6 +1,6 @@
-package com.adobe.connector.gateways.connection.http;
+package com.adobe.connector.gateway.connection.http;
 
-import com.adobe.connector.gateways.message.Message;
+import com.adobe.connector.gateway.message.Message;
 
 /**
  * Created by stievena on 10/10/16.

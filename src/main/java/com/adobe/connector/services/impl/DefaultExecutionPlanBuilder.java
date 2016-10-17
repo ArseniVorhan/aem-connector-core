@@ -3,7 +3,7 @@ package com.adobe.connector.services.impl;
 import com.adobe.connector.ConnectorRequest;
 import com.adobe.connector.ExecutionPlan;
 import com.adobe.connector.WorkUnit;
-import com.adobe.connector.gateways.GatewayRequest;
+import com.adobe.connector.gateway.GatewayRequest;
 import com.adobe.connector.services.ExecutionPlanBuilder;
 import com.adobe.connector.services.ExecutionPlanFactory;
 import com.adobe.connector.utils.ConnectorUtils;

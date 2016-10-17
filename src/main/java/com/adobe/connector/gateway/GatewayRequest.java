@@ -1,4 +1,4 @@
-package com.adobe.connector.gateways;
+package com.adobe.connector.gateway;
 
 import com.adobe.connector.ConnectorRequest;
 
