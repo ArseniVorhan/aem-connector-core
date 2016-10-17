@@ -68,7 +68,7 @@ public class HttpMessage extends Message {
 
     public void setMediaType(String mediaType) {
         if (this.body != null) {
-            this.setMediaType(mediaType);
+            this.body.setMediaType(mediaType);
         } else {
             this.body = new Body(null, mediaType);
         }
